@@ -1,7 +1,5 @@
 :root {
-    /* Color Variables - Updated to match the image */
-    --primary-bg: linear-gradient(135deg, #1a0810 0%, #4a1a2e 25%, #8b2650 50%, #c9406b 75%, #1a0810 100%);
-    --secondary-bg: url("/Untitled.png");
+    --primary-bg: url('Untitled.png');
     --glass-bg: rgba(255, 255, 255, 0.096);
     --glass-border: rgba(255, 255, 255, 0.774);
     --text-primary: #ffffff;
@@ -9,13 +7,9 @@
     --accent-pink: #ffffff;
     --accent-red: #ffffff;
     --shadow-color: rgba(201, 64, 107, 0.4);
-    
-    /* Font Variables - Updated to Fraunces */
     --font-primary: 'Fraunces', serif;
     --font-secondary: 'Fraunces', serif;
     --font-decorative: 'Fraunces', serif;
-    
-    /* Animation Variables - Simplified */
     --transition-smooth: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
@@ -28,16 +22,16 @@
 
 body {
     font-family: var(--font-primary);
-    background: var(--secondary-bg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+    background: var(--primary-bg);
     color: var(--text-primary);
     overflow-x: hidden;
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">🌸</text></svg>'), auto;
+    min-height: 100vh;
+    background-image: var(--primary-bg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-/* Enhanced grain texture to match the image */
 body::before {
     content: '';
     position: fixed;
@@ -55,7 +49,6 @@ body::before {
     opacity: 0.8;
 }
 
-/* Opening Page */
 .opening-page {
     height: 100vh;
     display: flex;
@@ -139,7 +132,6 @@ body::before {
     border-color: var(--accent-pink);
 }
 
-/* Timer Page */
 .timer-page {
     min-height: 100vh;
     display: none;
@@ -160,7 +152,6 @@ body::before {
     display: none !important;
 }
 
-/* Back Button */
 .back-btn {
     width: 100%;
     max-width: 1200px;
@@ -271,15 +262,6 @@ body::before {
     letter-spacing: 1px;
 }
 
-.decorative-flowers {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    font-size: 2rem;
-    z-index: -1;
-}
-
-/* Animation classes for smooth transitions */
 .fade-out {
     opacity: 0 !important;
     transform: translateY(-50px) !important;
@@ -297,7 +279,6 @@ body::before {
     transform: translateY(0) !important;
 }
 
-/* Sparkle animation */
 @keyframes sparkleFloat {
     0% { 
         opacity: 1; 
@@ -309,7 +290,6 @@ body::before {
     }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .timer-container {
         grid-template-columns: 1fr;
@@ -363,7 +343,4 @@ body::before {
         padding: 0.9rem 1.2rem;
         font-size: 1rem;
     }
-}/ *   F o r c e   r e d e p l o y   * /  
- 
-   
- 
+} 

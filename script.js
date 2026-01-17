@@ -1,1 +1,126 @@
-// Timer start dates\nconst loveStartDate = new Date('2025-06-28T22:18:00').getTime();\nconst yoursStartDate = new Date('2025-07-18T18:17:00').getTime();\n\nfunction showTimers() {\n    console.log('showTimers called');\n    const openingPage = document.getElementById('openingPage');\n    const timerPage = document.getElementById('timerPage');\n    \n    console.log('openingPage:', openingPage);\n    console.log('timerPage:', timerPage);\n    \n    // Reset any classes and inline styles\n    openingPage.className = 'opening-page fade-out';\n    \n    setTimeout(() => {\n        openingPage.classList.add('hidden');\n        timerPage.className = 'timer-page active fade-in-from-bottom';\n        \n        setTimeout(() => {\n            timerPage.classList.remove('fade-in-from-bottom');\n            timerPage.classList.add('fade-in');\n        }, 50);\n    }, 800);\n}\n\nfunction goBackHome() {\n    const openingPage = document.getElementById('openingPage');\n    const timerPage = document.getElementById('timerPage');\n    \n    // Reset timer page classes and start fade out\n    timerPage.className = 'timer-page active fade-out';\n    \n    setTimeout(() => {\n        timerPage.classList.add('hidden');\n        timerPage.classList.remove('active');\n        \n        // Reset opening page and show it\n        openingPage.className = 'opening-page fade-in-from-bottom';\n        openingPage.classList.remove('hidden');\n        \n        setTimeout(() => {\n            openingPage.classList.remove('fade-in-from-bottom');\n            openingPage.classList.add('fade-in');\n            \n            // Clean up classes after animation\n            setTimeout(() => {\n                openingPage.className = 'opening-page';\n                timerPage.className = 'timer-page';\n            }, 100);\n        }, 50);\n    }, 800);\n}\n\nfunction updateTimer(startDate, timerNumber) {\n    const now = new Date().getTime();\n    const difference = now - startDate;\n\n    const totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));\n    const years = Math.floor(totalDays / 365.25);\n    const daysAfterYears = totalDays - years * 365.25;\n    const months = Math.floor(daysAfterYears / 30.44);\n    const days = Math.floor(daysAfterYears - months * 30.44);\n    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));\n    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));\n    const seconds = Math.floor((difference % (1000 * 60)) / 1000);\n\n    // Update the display with smooth number animation\n    animateNumber(years, years);\n    animateNumber(months, months);\n    animateNumber(days, days);\n    animateNumber(hours, hours);\n    animateNumber(minutes, minutes);\n    animateNumber(seconds, seconds);\n}\n\nfunction animateNumber(elementId, newValue) {\n    const element = document.getElementById(elementId);\n    if (!element) return;\n    \n    const currentValue = parseInt(element.textContent) || 0;\n    \n    if (currentValue !== newValue) {\n        element.style.transform = 'scale(1.1)';\n        element.style.color = 'var(--accent-red)';\n        \n        setTimeout(() => {\n            element.textContent = newValue;\n            element.style.transform = 'scale(1)';\n            element.style.color = 'var(--accent-pink)';\n        }, 100);\n    }\n}\n\n// Update timers every second\nfunction updateAllTimers() {\n    updateTimer(loveStartDate, 1);\n    updateTimer(yoursStartDate, 2);\n}\n\n// Start the timers\nupdateAllTimers();\nsetInterval(updateAllTimers, 1000);\n\n// Add some interactive sparkle effects\ndocument.addEventListener('mousemove', (e) => {\n    if (Math.random() > 0.95) {\n        createSparkle(e.clientX, e.clientY);\n    }\n});\n\nfunction createSparkle(x, y) {\n    const sparkle = document.createElement('div');\n    sparkle.innerHTML = '';\n    sparkle.style.position = 'fixed';\n    sparkle.style.left = x + 'px';\n    sparkle.style.top = y + 'px';\n    sparkle.style.pointerEvents = 'none';\n    sparkle.style.fontSize = '20px';\n    sparkle.style.zIndex = '1000';\n    sparkle.style.animation = 'sparkleFloat 2s ease-out forwards';\n    \n    document.body.appendChild(sparkle);\n    \n    setTimeout(() => {\n        if (document.body.contains(sparkle)) {\n            document.body.removeChild(sparkle);\n        }\n    }, 2000);\n}
+// Timer start dates
+const loveStartDate = new Date('2025-06-28T22:18:00').getTime();
+const yoursStartDate = new Date('2025-07-18T18:17:00').getTime();
+
+function showTimers() {
+    const openingPage = document.getElementById('openingPage');
+    const timerPage = document.getElementById('timerPage');
+
+    openingPage.className = 'opening-page fade-out';
+
+    setTimeout(() => {
+        openingPage.classList.add('hidden');
+        timerPage.className = 'timer-page active fade-in-from-bottom';
+
+        setTimeout(() => {
+            timerPage.classList.remove('fade-in-from-bottom');
+            timerPage.classList.add('fade-in');
+        }, 50);
+    }, 800);
+}
+
+function goBackHome() {
+    const openingPage = document.getElementById('openingPage');
+    const timerPage = document.getElementById('timerPage');
+
+    timerPage.className = 'timer-page active fade-out';
+
+    setTimeout(() => {
+        timerPage.classList.add('hidden');
+        timerPage.classList.remove('active');
+
+        openingPage.className = 'opening-page fade-in-from-bottom';
+        openingPage.classList.remove('hidden');
+
+        setTimeout(() => {
+            openingPage.classList.remove('fade-in-from-bottom');
+            openingPage.classList.add('fade-in');
+
+            setTimeout(() => {
+                openingPage.className = 'opening-page';
+                timerPage.className = 'timer-page';
+            }, 100);
+        }, 50);
+    }, 800);
+}
+
+function updateTimer(startDate, timerNumber) {
+    const now = new Date().getTime();
+    const difference = now - startDate;
+
+    const totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const years = Math.floor(totalDays / 365.25);
+    const daysAfterYears = totalDays - years * 365.25;
+    const months = Math.floor(daysAfterYears / 30.44);
+    const days = Math.floor(daysAfterYears - months * 30.44);
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    animateNumber(`years${timerNumber}`, years);
+    animateNumber(`months${timerNumber}`, months);
+    animateNumber(`days${timerNumber}`, days);
+    animateNumber(`hours${timerNumber}`, hours);
+    animateNumber(`minutes${timerNumber}`, minutes);
+    animateNumber(`seconds${timerNumber}`, seconds);
+}
+
+function animateNumber(elementId, newValue) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    const currentValue = parseInt(element.textContent) || 0;
+
+    if (currentValue !== newValue) {
+        element.style.transform = 'scale(1.1)';
+        element.style.color = 'var(--accent-red)';
+
+        setTimeout(() => {
+            element.textContent = newValue;
+            element.style.transform = 'scale(1)';
+            element.style.color = 'var(--accent-pink)';
+        }, 100);
+    }
+}
+
+function updateAllTimers() {
+    updateTimer(loveStartDate, 1);
+    updateTimer(yoursStartDate, 2);
+}
+
+function createSparkle(x, y) {
+    const sparkle = document.createElement('div');
+    sparkle.innerHTML = '💕';
+    sparkle.style.position = 'fixed';
+    sparkle.style.left = x + 'px';
+    sparkle.style.top = y + 'px';
+    sparkle.style.pointerEvents = 'none';
+    sparkle.style.fontSize = '20px';
+    sparkle.style.zIndex = '1000';
+    sparkle.style.animation = 'sparkleFloat 2s ease-out forwards';
+
+    document.body.appendChild(sparkle);
+    setTimeout(() => {
+        if (document.body.contains(sparkle)) {
+            document.body.removeChild(sparkle);
+        }
+    }, 2000);
+}
+
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Event listeners
+    document.getElementById('continueBtn').addEventListener('click', showTimers);
+    document.getElementById('backBtn').addEventListener('click', goBackHome);
+
+    // Start the timers
+    updateAllTimers();
+    setInterval(updateAllTimers, 1000);
+
+    // Sparkle effects
+    document.addEventListener('mousemove', (e) => {
+        if (math.random() > 0.95) {
+            createSparkle(e.clientX, e.clientY);
+        }
+    });
+}); 
