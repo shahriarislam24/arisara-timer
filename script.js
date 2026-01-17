@@ -1,6 +1,6 @@
 // Timer start dates
-const loveStartDate = new Date('2025-06-28T22:18:00').getTime();
-const yoursStartDate = new Date('2025-07-18T18:17:00').getTime();
+const loveStartDate = new Date('2025-06-28T22:18:00');
+const yoursStartDate = new Date('2025-07-18T18:17:00');
 
 function showTimers() {
     const openingPage = document.getElementById('openingPage');
@@ -45,21 +45,44 @@ function goBackHome() {
 }
 
 function updateTimer(startDate, timerNumber) {
-    const now = new Date().getTime();
-    const difference = now - startDate;
-
+    const now = new Date();
+    const start = new Date(startDate);
+    
+    // Calculate total difference in milliseconds
+    const difference = now - start;
+    
+    // Calculate years and months for display text
+    let years = now.getFullYear() - start.getFullYear();
+    let months = now.getMonth() - start.getMonth();
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+    
+    // If the current day is before the start day in the month, subtract a month
+    if (now.getDate() < start.getDate()) {
+        months--;
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+    }
+    
+    // Calculate TOTAL days, hours, minutes, seconds from start
     const totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const years = Math.floor(totalDays / 365.25);
-    const daysAfterYears = totalDays - years * 365.25;
-    const months = Math.floor(daysAfterYears / 30.44);
-    const days = Math.floor(daysAfterYears - months * 30.44);
     const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-    animateNumber(`years${timerNumber}`, years);
-    animateNumber(`months${timerNumber}`, months);
-    animateNumber(`days${timerNumber}`, days);
+    // Update summary text (years and months)
+    const summary = document.getElementById(`summary${timerNumber}`);
+    if (summary) {
+        summary.querySelector('.years-display').textContent = years;
+        summary.querySelector('.months-display').textContent = months;
+    }
+
+    // Update counter (total days, hours, minutes, seconds)
+    animateNumber(`days${timerNumber}`, totalDays);
     animateNumber(`hours${timerNumber}`, hours);
     animateNumber(`minutes${timerNumber}`, minutes);
     animateNumber(`seconds${timerNumber}`, seconds);
@@ -119,8 +142,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Sparkle effects
     document.addEventListener('mousemove', (e) => {
-        if (math.random() > 0.95) {
+        if (Math.random() > 0.95) {
             createSparkle(e.clientX, e.clientY);
         }
     });
-}); 
+});

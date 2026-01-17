@@ -1,5 +1,5 @@
 :root {
-    --primary-bg: url('Untitled.png');
+    --primary-bg: url(Untitled.png);
     --glass-bg: rgba(255, 255, 255, 0.096);
     --glass-border: rgba(255, 255, 255, 0.774);
     --text-primary: #ffffff;
@@ -22,14 +22,14 @@
 
 body {
     font-family: var(--font-primary);
-    background: var(--primary-bg);
-    color: var(--text-primary);
-    overflow-x: hidden;
-    min-height: 100vh;
     background-image: var(--primary-bg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
 body::before {
@@ -231,7 +231,43 @@ body::before {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
+}
+
+.time-summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+}
+
+.summary-unit {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem 1rem;
+    transition: var(--transition-smooth);
+}
+
+.summary-unit:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.summary-value {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--accent-pink);
+    font-family: var(--font-secondary);
+    text-shadow: 0 0 20px var(--shadow-color);
+}
+
+.summary-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .time-unit {
@@ -343,4 +379,4 @@ body::before {
         padding: 0.9rem 1.2rem;
         font-size: 1rem;
     }
-} 
+}
